@@ -40,7 +40,7 @@ def generate_data_id(nasa_id):
 df['data_id'] = df['nasa_id'].apply(generate_data_id)
 
 #add data_load_datetime for data load date and time 
-df['data_load_datetime'] = datetime.now()
+df['created_at'] = datetime.now()
 
 #verify url
 df['nasa_site_url'] = df['nasa_site_url'].apply(
