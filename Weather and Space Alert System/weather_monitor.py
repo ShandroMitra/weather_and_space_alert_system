@@ -18,7 +18,7 @@ def weatherapi(latitude, longitude,location_name):
         "latitude": latitude,
         "longitude": longitude,
         "hourly": [
-            "temperature_2m", "relative_humidity_2m", "dew_point_2m", "apparent_temperature",
+            "temperature_2m", "relative_humidity_2m", "dew_point_2m", "apparent_temperature","wind_speed_10m",
             "precipitation_probability", "precipitation", "rain", "showers", "snowfall",
             "snow_depth", "weather_code", "pressure_msl", "surface_pressure", "cloud_cover",
             "cloud_cover_low", "cloud_cover_mid", "cloud_cover_high", "visibility",
@@ -50,14 +50,14 @@ def weatherapi(latitude, longitude,location_name):
         current_index = 0
 
     # Prepare data for the current hour only
-    current_hour_data = {"location": location_name,"date": now_utc.strftime("%Y-%m-%d %H:%M:%S")}
+    current_hour_data = {"city": location_name}
 
     variables = [
-        "temperature_2m", "relative_humidity_2m", "dew_point_2m", "apparent_temperature",
-        "precipitation_probability", "precipitation", "rain", "showers", "snowfall",
-        "snow_depth", "weather_code", "pressure_msl", "surface_pressure", "cloud_cover",
-        "cloud_cover_low", "cloud_cover_mid", "cloud_cover_high", "visibility",
-        "evapotranspiration", "et0_fao_evapotranspiration", "vapour_pressure_deficit"
+        "temperature_celcius", "humidity_%", "dew_temperature_celcius", "feels_like_temperature_celcius","wind_speed_kmph",
+        "precipitation_%", "precipitation_occured_mm", "rain_mm", "showers_mm", "snowfall_mm",
+        "snow_depth_mm", "weather_code", "mean_sea_level_pressure_hpa", "surface_pressure_hpa", "cloud_cover_%",
+        "visibility_m",
+        "evapotranspiration_mm", "et0_fao_evapotranspiration_mm", "vapour_pressure_deficit_kpa"
     ]
 
     # Extract the value for the current hour from each variable
@@ -68,25 +68,25 @@ def weatherapi(latitude, longitude,location_name):
     return current_hour_data
 
 def fetch_weather_batch():
-    delhi=weatherapi(28.7041,77.1025,'delhi')
+    delhi=weatherapi(28.7041,77.1025,'Delhi')
 
-    mumbai=weatherapi(18.9582,72.8321,'mumbai')
+    mumbai=weatherapi(18.9582,72.8321,'Mumbai')
 
-    bengaluru=weatherapi(12.9629,77.5775,'bengaluru')
+    bengaluru=weatherapi(12.9629,77.5775,'Bengaluru')
 
-    hyderabad=weatherapi(17.4065, 78.4772,'hyderabad')
+    hyderabad=weatherapi(17.4065, 78.4772,'Hyderabad')
 
-    chennai=weatherapi(13.0843,80.2705,'chennai')
+    chennai=weatherapi(13.0843,80.2705,'Chennai')
 
-    kolkata=weatherapi(22.5744,88.3629,'kolkata')
+    kolkata=weatherapi(22.5744,88.3629,'Kolkata')
 
-    ahmedabad=weatherapi(23.0225,72.5714,'ahmedabad')
+    ahmedabad=weatherapi(23.0225,72.5714,'Ahmedabad')
 
-    pune=weatherapi(18.5246,73.8786,'pune')
+    pune=weatherapi(18.5246,73.8786,'Pune')
 
-    jaipur=weatherapi(26.9124,75.7873,'jaipur')
+    jaipur=weatherapi(26.9124,75.7873,'Jaipur')
 
-    lucknow=weatherapi(26.8467,80.9462,'lucknow')
+    lucknow=weatherapi(26.8467,80.9462,'Lucknow')
     
     all_cities=[delhi,mumbai,bengaluru,hyderabad,chennai,kolkata,ahmedabad,pune,jaipur,lucknow]
 
@@ -136,6 +136,7 @@ Data Dictionary Explanation:
 - relative_humidity_2m: Relative humidity at 2 meters height, in percentage (%) (float).
 - dew_point_2m: Dew point temperature at 2 meters height, in degrees Celsius (float).
 - apparent_temperature: Feels-like temperature considering humidity and wind, in degrees Celsius (float).
+- wind_speed_10m: wind speed in kmph above 10 meter of ground level(float).
 - precipitation_probability: Probability of precipitation occurring, in percentage (%) (float).
 - precipitation: Amount of precipitation expected or recorded, in millimeters (mm) (float).
 - rain: Amount of rain specifically, in millimeters (mm) (float).
