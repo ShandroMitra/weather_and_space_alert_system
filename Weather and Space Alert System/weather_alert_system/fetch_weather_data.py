@@ -1,3 +1,4 @@
+# Fetch hourly weather info through open-meteo API
 
 import openmeteo_requests
 import pandas as pd
@@ -91,18 +92,12 @@ def fetch_weather_batch():
     all_cities=[delhi,mumbai,bengaluru,hyderabad,chennai,kolkata,ahmedabad,pune,jaipur,lucknow]
 
     # debugging
-    print(all_cities)
+    print(f"✅ Data fetched successfully from API")
 
 
     return all_cities
 
-fetch_weather_batch()
-
-
-
-
-
-
+# fetch_weather_batch()
 
 
 
