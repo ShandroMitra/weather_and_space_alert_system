@@ -3,7 +3,7 @@
 import pandas as pd
 import random
 from datetime import datetime
-from fetch_weather_data import fetch_weather_batch
+from step01_extract_weather_data import fetch_weather_batch
 # from weather_monitor import weatherapi,fetch_weather_batch
 df = pd.DataFrame(fetch_weather_batch())
 
@@ -81,4 +81,4 @@ df['processing_status'] = 'cleaned'
 df.dropna(subset=["city","temperature_celcius","weather_code"],inplace=True)
 
 # sucess message
-print("✅ Data cleaning completed successfully.")
+print('✅ Data cleaning completed successfully.')

@@ -1,6 +1,6 @@
 # MONITOR DATA
-from validate_weather_data import df
-from load_weather_data import load_dataframe_to_postgres
+from step04_validate_weather_data import df
+from step05_load_weather_data import load_dataframe_to_postgres
 
 def detect_extreme_weather_conditions(df):
     extreme_events = []

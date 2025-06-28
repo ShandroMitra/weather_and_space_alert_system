@@ -1,6 +1,6 @@
 #LOAD TO POSTGRES DATABASE AND AUDIT
-from validate_weather_data import df
-from validate_weather_data import validate
+from step04_validate_weather_data import df
+from step04_validate_weather_data import validate
 from sqlalchemy import create_engine, text
 from sqlalchemy.engine import URL
 from datetime import datetime

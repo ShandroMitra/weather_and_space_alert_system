@@ -1,6 +1,6 @@
 #GENERATE ALERT
-from monitor_weather_data import detect_extreme_weather_conditions
-from monitor_weather_data import df
+from step06_monitor_weather_data import detect_extreme_weather_conditions
+from step06_monitor_weather_data import df
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart

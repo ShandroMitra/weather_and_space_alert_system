@@ -1,5 +1,5 @@
 # DATA TRANSFORMATION 
-from clean_weather_data import df
+from step02_clean_weather_data import df
 from datetime import datetime
 import random
 # Add current datetime in the specified format
