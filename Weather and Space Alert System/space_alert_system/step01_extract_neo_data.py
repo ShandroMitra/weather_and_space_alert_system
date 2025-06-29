@@ -1,8 +1,11 @@
 import requests
 from datetime import datetime, timedelta
+from dotenv import load_dotenv
+import os
+load_dotenv()
 
 def neosapi():
-    api_key = "CH58a6JEL5zwrHF3aUCQZMcUZylAzoU9xeUYvRt0"  # <-- your API key here
+    nasa_neo_api_key = os.getenv("NASA_NEO_API_KEY") # <-- your API key here
 
     now = datetime.utcnow()
     start_date = (now - timedelta(days=0.5)).strftime("%Y-%m-%d")
@@ -12,7 +15,7 @@ def neosapi():
     params = {
         "start_date": start_date,
         "end_date": end_date,
-        "api_key": api_key
+        "api_key": nasa_neo_api_key
     }
 
     response = requests.get(url, params=params)
@@ -36,15 +39,10 @@ def neosapi():
                     "diameter_max_m": float(neo["estimated_diameter"]["meters"]["estimated_diameter_max"]),
                     "is_potentially_hazardous": neo["is_potentially_hazardous_asteroid"]
                 })
-
+    print('✅ Data fetched successfully for space alert system.')
     return neos_list
 
-# Example usage:
-print(neosapi())
-
-
-
-
+# print(neosapi())
 
 
 

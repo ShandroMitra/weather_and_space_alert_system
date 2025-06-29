@@ -1,8 +1,10 @@
-#LOAD TO POSTGRES DATABASE AND AUDIT
-from .step04_validate_weather_data import df,validate
+# LOAD DATA TO POSTGRES
+
+
 from sqlalchemy import create_engine, text
 from sqlalchemy.engine import URL
 from datetime import datetime
+from .step04_validate_neo_data import df,validate
 from dotenv import load_dotenv
 import os
 load_dotenv()
@@ -15,19 +17,15 @@ if validate(df)==True:
         db_host = os.getenv("db_host")
         db_port = os.getenv("db_port")
         db_name = os.getenv("db_name")
-        schema_name = os.getenv("weather_schema_name")
-        table_name = os.getenv("weather_table_name")
-        audit_table = os.getenv("weather_audit_table")
-
+        schema_name = os.getenv("nasa_schema_name")
+        table_name = os.getenv("nasa_table_name")
+        audit_table = os.getenv("nasa_audit_table")
         try:
             # --- Extract batch_id from DataFrame ---
             batch_ids = df['batch_id'].unique()
             if len(batch_ids) != 1:
                 raise ValueError("DataFrame must contain exactly one unique batch_id for this operation.")
             batch_id = batch_ids[0]
-
-            # --- Calculate record count ---
-            record_count = len(df)
 
             # --- Build the connection URL ---
             connection_url = URL.create(
@@ -46,12 +44,29 @@ if validate(df)==True:
             with engine.begin() as conn:
                 conn.execute(text(f'CREATE SCHEMA IF NOT EXISTS "{schema_name}"'))
 
+            # --- Step: Filter out duplicate nasa_id entries ---
+            with engine.begin() as conn:
+                existing_ids = conn.execute(text(f'''
+                    SELECT nasa_id FROM "{schema_name}"."{table_name}"
+                ''')).fetchall()
+                existing_ids_set = set([row[0] for row in existing_ids])
+
+            # Filter DataFrame to only new nasa_id values
+            df = df[~df['nasa_id'].isin(existing_ids_set)]
+
+            if df.empty:
+                print("🟡 No new records to insert. All nasa_id values already exist.")
+                return True
+
+            # --- Calculate record count ---
+            record_count = len(df)
+
             # --- Load DataFrame into the database ---
             df.to_sql(
                 name=table_name,
                 con=engine,
                 schema=schema_name,
-                if_exists='append', 
+                if_exists='append',
                 index=False,
                 method='multi'
             )
@@ -92,15 +107,17 @@ if validate(df)==True:
                     'record_count': record_count
                 })
 
-            print(f"✅ Data loaded and 'processing_status' updated in {schema_name}.{table_name} for batch_id={batch_id} for weather alert system")
-            print(f"✅ Audit trail updated in {schema_name}.{audit_table} for batch_id={batch_id} with record count {record_count} for weather alert system")
+            print(f"✅ Data loaded and 'processing_status' updated in {schema_name}.{table_name} for batch_id={batch_id} for space alert system")
+            print(f"✅ Audit trail updated in schema: '{schema_name}', table: '{audit_table}' for batch_id={batch_id} with record count: {record_count} for space alert system")
 
             return True
 
         except Exception as e:
             print(f"❌ Failed to load data: {e}")
             return False
-    
-else:
-    print('Data load cancelled as validation is not passed for weather alert system')
 
+else:
+    print('Data load cancelled as validation is not passed')
+
+# --- Call the function ---
+# load_dataframe_to_postgres(df)

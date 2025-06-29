@@ -1,6 +1,6 @@
 #GENERATE ALERT
-from step06_monitor_weather_data import detect_extreme_weather_conditions
-from step06_monitor_weather_data import df
+from .step06_monitor_weather_data import detect_extreme_weather_conditions
+from .step06_monitor_weather_data import df
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
@@ -10,7 +10,7 @@ load_dotenv()
 
 def send_extreme_weather_alert_email(alerts, recipient_email, sender_email, sender_password):
     if not alerts:
-        print("No extreme alerts to send.")
+        print("✅ No extreme alerts to send.")
         return
 
     subject = "IMPORTANT ALERT: Severe Weather Conditions Reported"
@@ -80,18 +80,20 @@ def send_extreme_weather_alert_email(alerts, recipient_email, sender_email, send
         with smtplib.SMTP_SSL('smtp.gmail.com', 465) as server:
             server.login(sender_email, sender_password)
             server.sendmail(sender_email, recipient_email, message.as_string())
-        print(f"✅ Alert email sent to {recipient_email}")
+        print(f"✅ Weather Alert email sent to {recipient_email}")
     except Exception as e:
         print(f"❌ Failed to send email: {e}")
 
 
 
-#call function
-alerts=detect_extreme_weather_conditions(df)
-send_extreme_weather_alert_email(
-    alerts,
-    recipient_email=["arghamitra4626@gmail.com"],
-    sender_email=os.getenv("SENDER_MAIL_ID"),
-    sender_password=os.getenv("GMAIL_APP_PASSWORD")
-)
+
+def run_weather_alert_system():
+    alerts = detect_extreme_weather_conditions(df)
+    send_extreme_weather_alert_email(
+        alerts,
+        recipient_email=["arghamitra4626@gmail.com"],
+        sender_email=os.getenv("SENDER_MAIL_ID"),
+        sender_password=os.getenv("GMAIL_APP_PASSWORD")
+    )
+
 

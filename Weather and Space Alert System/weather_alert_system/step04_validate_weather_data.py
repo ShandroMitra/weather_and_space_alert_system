@@ -1,7 +1,7 @@
 #DATA VALIDATION
 import pandas as pd
 from datetime import datetime
-from step03_transform_weather_data import df
+from .step03_transform_weather_data import df
 
 def validate(df):
     errors = []
@@ -58,12 +58,12 @@ def validate(df):
 
     # Final result
     if errors:
-        print("❌ Validation FAILED with the following issues:")
+        print("❌ Validation FAILED with the following issues for weather alert system:")
         for err in errors:
             print("-", err)
         return False
     else:
-        print("✅ Validation PASSED. Data is ready for downstream.")
+        print("✅ Validation PASSED. Data is ready for downstream for weather alert system.")
         return True
     
 # validate(df)

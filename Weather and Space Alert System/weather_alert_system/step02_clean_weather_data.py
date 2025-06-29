@@ -3,7 +3,7 @@
 import pandas as pd
 import random
 from datetime import datetime
-from step01_extract_weather_data import fetch_weather_batch
+from .step01_extract_weather_data import fetch_weather_batch
 # from weather_monitor import weatherapi,fetch_weather_batch
 df = pd.DataFrame(fetch_weather_batch())
 
@@ -73,12 +73,14 @@ for col, (min_val, max_val) in thresholds.items():
 #delete if multiple data coming from same city.
 df.drop_duplicates(subset=['city'], inplace=True)
 
-#audit trial cols
-df['processing_status'] = 'cleaned'
-
 
 #drop if imp cols have null values
 df.dropna(subset=["city","temperature_celcius","weather_code"],inplace=True)
 
+
+#audit trial cols
+df['processing_status'] = 'cleaned'
+
+
 # sucess message
-print('✅ Data cleaning completed successfully.')
+print('✅ Data cleaning completed successfully for weather alert system.')

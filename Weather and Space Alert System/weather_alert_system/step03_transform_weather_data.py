@@ -1,5 +1,5 @@
 # DATA TRANSFORMATION 
-from step02_clean_weather_data import df
+from .step02_clean_weather_data import df
 from datetime import datetime
 import random
 # Add current datetime in the specified format
@@ -245,6 +245,6 @@ sorted_columns = [
 ]
 df = df[sorted_columns]
 
-print("✅ Data transformation completed successfully.")
+print("✅ Data transformation completed successfullyfor weather alert system.")
 # for debugging
 # print(df)

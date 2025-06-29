@@ -92,7 +92,7 @@ def fetch_weather_batch():
     all_cities=[delhi,mumbai,bengaluru,hyderabad,chennai,kolkata,ahmedabad,pune,jaipur,lucknow]
 
     # debugging
-    print(f"✅ Data fetched successfully from API")
+    print(f"✅ Data fetched successfully from API for weather alert system")
 
 
     return all_cities

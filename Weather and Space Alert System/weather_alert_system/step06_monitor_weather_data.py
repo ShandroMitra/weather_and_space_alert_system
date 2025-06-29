@@ -1,6 +1,6 @@
 # MONITOR DATA
-from step04_validate_weather_data import df
-from step05_load_weather_data import load_dataframe_to_postgres
+from .step04_validate_weather_data import df
+from .step05_load_weather_data import load_dataframe_to_postgres
 
 def detect_extreme_weather_conditions(df):
     extreme_events = []
@@ -38,7 +38,7 @@ def detect_extreme_weather_conditions(df):
         ):
             events.append("Snowstorm / Blizzard")
 
-        if row['visibility_m'] < 50:
+        if row['visibility_m'] < 40:
             events.append("Dense Fog")
 
         if events:
@@ -62,7 +62,7 @@ if load_dataframe_to_postgres(df):
         chk = "NO"
     else:
         chk = "YES"
-    print(f"✅ Weather alerts detected: {chk} ")
+    print(f"✅ Weather alerts detected: {chk} for weather alert system")
     # print(alerts)
 else:
     print("❌ Execution failed with exit code 1.")
