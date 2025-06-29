@@ -89,9 +89,11 @@ def send_extreme_weather_alert_email(alerts, recipient_email, sender_email, send
 
 def run_weather_alert_system():
     alerts = detect_extreme_weather_conditions(df)
+    recipient_emails = os.getenv("RECIPIENT_EMAILS", "")
+    recipient_list = [email.strip() for email in recipient_emails.split(",") if email.strip()]
     send_extreme_weather_alert_email(
         alerts,
-        recipient_email=["arghamitra4626@gmail.com"],
+        recipient_email=recipient_list,
         sender_email=os.getenv("SENDER_MAIL_ID"),
         sender_password=os.getenv("GMAIL_APP_PASSWORD")
     )
