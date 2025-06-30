@@ -1,6 +1,13 @@
 WEATHER AND SPACE ALERT SYSTEM
 ==============================
 
+Author and Contact
+------------------
+Author: Shandro Mitra  
+Contact Email: Shandro.mitra@gmail.com
+--------------------------------------
+--------------------------------------
+
 Overview
 --------
 This project integrates data from the Open-Meteo API and NASA's Near Earth Object (NEO) API to monitor and generate alerts for weather and space events.
@@ -21,7 +28,7 @@ Space Alert System:
 
 Sample Log Output
 -----------------
-🔧 Starting the Weather Alert System...
+🟢 Starting the Weather Alert System...
 
 ✅ Data fetched successfully from API for weather alert system  
 ✅ Data cleaning completed successfully for weather alert system.  
@@ -33,7 +40,7 @@ Sample Log Output
 ✅ Weather Alert email sent to ['arghamitra4626@gmail.com']  
 ✅ WEATHER ALERT SYSTEM EXECUTED SUCCESSFULLY WITH ALL THE STEPS. EXIT CODE-  0  
 
-🔧 Starting the Space Alert System...
+🟢 Starting the Space Alert System...
 
 ✅ Data fetched successfully for space alert system.  
 ✅ Data cleaning completed successfully for space alert system.  
@@ -55,6 +62,7 @@ Environment Configuration (.env)
 # Mail Credentials
 GMAIL_APP_PASSWORD=''
 SENDER_MAIL_ID=''
+RECIPIENT_EMAILS=user1@example.com,user2@example.com
 
 # Database Configuration
 db_user=''
@@ -73,12 +81,7 @@ nasa_audit_table='space_alert_audit_trail'
 
 NASA_NEO_API_KEY=''
 -----------------------------------------------------------
-Author and Contact
-------------------
-Author: Shandro Mitra  
-Contact Email: Shandro.mitra@gmail.com
 
----
 
 Instructions
 ------------
