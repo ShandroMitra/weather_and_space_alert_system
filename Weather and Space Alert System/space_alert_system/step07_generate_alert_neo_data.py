@@ -69,6 +69,7 @@ def send_asteroid_threat_alert_email(alerts, recipient_email, sender_email, send
     message['X-Priority'] = '1'
     message['X-MSMail-Priority'] = 'High'
     message['Importance'] = 'High'
+    message['Priority'] = 'urgent'
 
     # Plain text fallback
     plain_body = "Dear User,\n\nThe following asteroids pose potential threats:\n\n"

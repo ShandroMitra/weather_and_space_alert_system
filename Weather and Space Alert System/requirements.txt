@@ -7,3 +7,4 @@ SQLAlchemy
 openmeteo-requests 
 requests-cache 
 retry-requests 
+psycopg2

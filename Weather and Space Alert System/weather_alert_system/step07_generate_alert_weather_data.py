@@ -64,6 +64,7 @@ def send_extreme_weather_alert_email(alerts, recipient_email, sender_email, send
     message['X-Priority'] = '1'
     message['X-MSMail-Priority'] = 'High'
     message['Importance'] = 'High'
+    message['Priority'] = 'urgent'
 
     # Attach plain text fallback (optional but good practice)
     plain_body = "Dear User,\n\nThis is an important weather alert from our monitoring system.\n\n"

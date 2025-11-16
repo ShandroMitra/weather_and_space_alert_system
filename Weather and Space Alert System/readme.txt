@@ -92,6 +92,10 @@ Instructions
 4. Run the main script:  
    `python main.py`  
 5. Monitor logs for status and alerts
+6. run the following code in postgres- "CREATE DATABASE WEATHER AND SPACE ALERT DB;"
 
 --------------------------------------------------------------------
+
+
+
 

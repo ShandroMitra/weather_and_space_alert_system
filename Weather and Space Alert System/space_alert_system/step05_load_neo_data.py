@@ -1,15 +1,15 @@
 # LOAD DATA TO POSTGRES
 
-
-from sqlalchemy import create_engine, text
+from sqlalchemy import create_engine, text, inspect
 from sqlalchemy.engine import URL
 from datetime import datetime
-from .step04_validate_neo_data import df,validate
+from .step04_validate_neo_data import df, validate
 from dotenv import load_dotenv
 import os
+
 load_dotenv()
 
-if validate(df)==True:
+if validate(df) == True:
     def load_dataframe_to_postgres(df):
         # --- DB CONFIG ---
         db_user = os.getenv("db_user")
@@ -20,6 +20,7 @@ if validate(df)==True:
         schema_name = os.getenv("nasa_schema_name")
         table_name = os.getenv("nasa_table_name")
         audit_table = os.getenv("nasa_audit_table")
+
         try:
             # --- Extract batch_id from DataFrame ---
             batch_ids = df['batch_id'].unique()
@@ -43,6 +44,18 @@ if validate(df)==True:
             # --- Ensure schema exists ---
             with engine.begin() as conn:
                 conn.execute(text(f'CREATE SCHEMA IF NOT EXISTS "{schema_name}"'))
+
+            # --- Ensure main table exists dynamically ---
+            inspector = inspect(engine)
+            if not inspector.has_table(table_name, schema=schema_name):
+                # Create empty table with same columns as DataFrame
+                df.head(0).to_sql(
+                    name=table_name,
+                    con=engine,
+                    schema=schema_name,
+                    if_exists='replace',  # creates table if missing
+                    index=False
+                )
 
             # --- Step: Filter out duplicate nasa_id entries ---
             with engine.begin() as conn:
